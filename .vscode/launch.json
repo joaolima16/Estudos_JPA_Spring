@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-JpaApplication<jpa>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.estudos.jpa.jpa.JpaApplication",
+            "projectName": "jpa",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
