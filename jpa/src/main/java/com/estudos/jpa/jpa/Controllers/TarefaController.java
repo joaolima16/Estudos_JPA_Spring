@@ -1,9 +1,11 @@
 package com.estudos.jpa.jpa.Controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.StreamingHttpOutputMessage.Body;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.estudos.jpa.jpa.Entities.Tarefa;
-import com.estudos.jpa.jpa.Repository.TarefaRepository;
 import com.estudos.jpa.jpa.Services.TarefaService;
 import com.estudos.jpa.jpa.dto.TarefaDTO;
 
@@ -30,28 +31,26 @@ public class TarefaController {
         return tarefaService.criar(tarefaDTO);
     }
 
-
-    // @PutMapping("/{tarefaId}")
-    // @ResponseBody
-    // public TarefaDTO atualizar(@PathVariable("tarefaId") Long tarefaId, @RequestBody TarefaDTO tarefaDTO){
-    //     return tarefaService.atualizar(tarefaDTO, tarefaId);
-    // }
-
     // @DeleteMapping("/{tarefaId}")
     // @ResponseBody
     // public TarefaDTO deletar(@PathVariable("tarefaId") Long tarefaId, @RequestBody TarefaDTO tarefaDTO){
     //     return tarefaService.deletar(tarefaId);
     // }
 
-    // @GetMapping("/{tarefaId}")
-    // @ResponseBody
-    // public TarefaDTO getById(@PathVariable("tarefaId") Long tarefaId){
-    //     return tarefaService.getById(tarefaId);
-    // }
+    @GetMapping("/{tarefaId}")
+    @ResponseBody
+    public ResponseEntity getById(@PathVariable("tarefaId") Long tarefaId){
+        Optional <Tarefa>tarefa = tarefaService.getById(tarefaId);
+        if(tarefa.isEmpty()){
+            return ResponseEntity.badRequest().body("Tarefa não encontrada");
+        }
+        return ResponseEntity.ok().body(tarefa);
+    }
 
-    // @GetMapping
-    // @ResponseBody
-    // public List <TarefaDTO> getAll(){
-    //     return tarefaService.getAll();
-    // }
+    @GetMapping
+    @ResponseBody
+    public List <Tarefa> getAll(){
+        List<Tarefa> tarefas = tarefaService.getAll();
+        return tarefas;
+    }
 }

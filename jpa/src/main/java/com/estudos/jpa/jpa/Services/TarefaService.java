@@ -1,9 +1,6 @@
 package com.estudos.jpa.jpa.Services;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,20 +24,16 @@ public class TarefaService {
 
     }
 
-    public TarefaDTO atualizar(TarefaDTO tarefaDTO, Long tarefaId) {
-     Optional <Tarefa>tarefa = tarefaRepository.findById(tarefaId);
-        
-        return tarefaDTO;
+ 
+    public Optional<Tarefa> getById(Long tarefaId) {
+      Optional <Tarefa> tarefa = tarefaRepository.findById(tarefaId);
+      return tarefa;
+
     }
-
-    // public TarefaDTO getById(Long tarefaId) {
-    //     return tarefas.get(tarefaId);
-    // }
-
-    // public List<TarefaDTO> getAll() {
-    //     return new ArrayList<>(tarefas.values());
-
-    // }
+    public List<Tarefa> getAll() {
+        List <Tarefa> tarefa = tarefaRepository.findAll();
+        return tarefa;
+    }
 
     // public TarefaDTO deletar(Long tarefaId) {
     //     return tarefas.remove(tarefaId);
